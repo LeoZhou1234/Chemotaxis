@@ -92,11 +92,8 @@ class Walker {
 Walker[] walkerArr;
 ArrayList<Food> foodArr;
 
-void settings() {
-  size(CANVAS_X, CANVAS_Y);
-}
-
 void setup() {
+  size(300, 300);
   walkerArr = new Walker[MAX_OBJECTS];
   foodArr = new ArrayList<Food>();
   for (int i = 0; i < MAX_OBJECTS; i++) {
