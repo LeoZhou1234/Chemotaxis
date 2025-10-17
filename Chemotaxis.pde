@@ -116,7 +116,7 @@ void mousePressed() {
 void keyPressed() {
   if (key == 'r') {
     for (int i = 0; i < MAX_OBJECTS; i++) {
-      walkerArr[i]= new Walker();
+      walkerArr[i] = new Walker();
     }
     foodArr.clear();
   }
