@@ -3,7 +3,7 @@ import java.util.ArrayList;
 int MAX_OBJECTS = 10;
 
 public Food findNearestFood(ArrayList<Food> foodArr, int x, int y) {
-  int minDist = Integer.MAX_VALUE;
+  int minDist = (int)1e9;
   Food nearestFood = foodArr.get(0);
   System.out.println();
   for (int i = 0; i < foodArr.size(); i++) {
