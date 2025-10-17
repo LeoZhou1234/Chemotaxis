@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 int MAX_OBJECTS = 10;
+int CANVAS_X = 300;
+int CANVAS_Y = 300;
 
 public Food findNearestFood(ArrayList<Food> foodArr, int x, int y) {
   int minDist = (int)1e9;
@@ -40,7 +42,14 @@ class Walker {
     col = color((int)(Math.random()*155)+100, (int)(Math.random()*155)+100, (int)(Math.random()*155)+100);
   }
   
-  public void walk(int goalX, int goalY) {
+  private void checkBoundaries() {
+    if (x > CANVAS_X) x--;
+    if (x < 0) x++;
+    if (y > CANVAS_Y) y--;
+    if (y < 0) y++;
+  }
+  
+  public void biasedWalk(int goalX, int goalY) {
     double prob = Math.random();
     if (prob < 0.2) {
       x -= (x < goalX ? 1 : -1);
@@ -53,6 +62,13 @@ class Walker {
     } else if (prob >= 0.6) {
       y += (y < goalY ? 1 : -1);
     }
+    checkBoundaries();
+  }
+  
+  public void randomWalk() {
+    x += (int)(Math.random()*3) - 1;
+    y += (int)(Math.random()*3) - 1;
+    checkBoundaries();
   }
   
   public void grow() {
@@ -76,8 +92,11 @@ class Walker {
 Walker[] walkerArr;
 ArrayList<Food> foodArr;
 
+void settings() {
+  size(CANVAS_X, CANVAS_Y);
+}
+
 void setup() {
-  size(300, 300);
   walkerArr = new Walker[MAX_OBJECTS];
   foodArr = new ArrayList<Food>();
   for (int i = 0; i < MAX_OBJECTS; i++) {
@@ -87,7 +106,7 @@ void setup() {
 
 void draw() {
   fill(50, 50, 50, 30);
-  rect(0, 0, 300, 300);
+  rect(0, 0, CANVAS_X, CANVAS_Y);
 
   for (Food food: foodArr) {
     food.show();
@@ -96,13 +115,13 @@ void draw() {
   for (Walker walker : walkerArr) {
     if (foodArr.size() > 0) {
       Food nearestFood = findNearestFood(foodArr, walker.x, walker.y);
-      walker.walk(nearestFood.x, nearestFood.y);
+      walker.biasedWalk(nearestFood.x, nearestFood.y);
       if (dist(nearestFood.x, nearestFood.y, walker.x, walker.y) <= walker.size) {
         foodArr.remove(nearestFood);
         walker.grow();
       }
     } else {
-      walker.walk(width/2, height/2);
+      walker.randomWalk();
     }
     walker.show();
   }
@@ -115,9 +134,9 @@ void mousePressed() {
 void keyPressed() {
   if (key == 'r') {
     for (int i = 0; i < MAX_OBJECTS; i++) {
-      walkerArr[i] = new Walker();
+      walkerArr[i]= new Walker();
     }
     foodArr.clear();
   }
 }
-      
+     
