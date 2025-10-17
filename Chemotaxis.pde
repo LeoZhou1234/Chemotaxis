@@ -54,8 +54,6 @@ class Walker {
     } else if (prob >= 0.6) {
       y += (y < goalY ? 1 : -1);
     }
-    //x += (int)(Math.random()*3) - 1;
-    //y += (int)(Math.random()*3) - 1;
   }
   
   public void grow() {
@@ -76,7 +74,6 @@ class Walker {
   }
 }
 
-//Jumper jumper = new Jumper();
 Walker[] walkerArr;
 ArrayList<Food> foodArr;
 
