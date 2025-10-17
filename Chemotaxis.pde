@@ -1,8 +1,8 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
-int NUM_OBJECTS = 10;
+int MAX_OBJECTS = 10;
 
-public Food findNearestFood(Vector<Food> foodArr, int x, int y) {
+public Food findNearestFood(ArrayList<Food> foodArr, int x, int y) {
   int minDist = Integer.MAX_VALUE;
   Food nearestFood = foodArr.get(0);
   System.out.println();
@@ -54,6 +54,8 @@ class Walker {
     } else if (prob >= 0.6) {
       y += (y < goalY ? 1 : -1);
     }
+    //x += (int)(Math.random()*3) - 1;
+    //y += (int)(Math.random()*3) - 1;
   }
   
   public void grow() {
@@ -76,13 +78,13 @@ class Walker {
 
 //Jumper jumper = new Jumper();
 Walker[] walkerArr;
-Vector<Food> foodArr;
+ArrayList<Food> foodArr;
 
 void setup() {
   size(300, 300);
-  walkerArr = new Walker[NUM_OBJECTS];
-  foodArr = new Vector<Food>();
-  for (int i = 0; i < NUM_OBJECTS; i++) {
+  walkerArr = new Walker[MAX_OBJECTS];
+  foodArr = new ArrayList<Food>();
+  for (int i = 0; i < MAX_OBJECTS; i++) {
     walkerArr[i] = new Walker();
   }
 }
@@ -116,7 +118,7 @@ void mousePressed() {
 
 void keyPressed() {
   if (key == 'r') {
-    for (int i = 0; i < NUM_OBJECTS; i++) {
+    for (int i = 0; i < MAX_OBJECTS; i++) {
       walkerArr[i]= new Walker();
     }
     foodArr.clear();
