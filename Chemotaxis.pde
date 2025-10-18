@@ -68,8 +68,11 @@ class Walker {
   }
   
   public void randomWalk() {
-    x += (int)(Math.random()*3) - 1;
-    y += (int)(Math.random()*3) - 1;
+    float dist = max(10.0/(size + 5), 0.5);
+    int prob = (int)(Math.random()*3) - 1;
+    x += (prob == 1 ? dist : (prob == -1 ? -dist : 0));
+    prob = (int)(Math.random()*3) - 1;
+    y += (prob == 1 ? dist : (prob == -1 ? -dist : 0));
     checkBoundaries();
   }
   
